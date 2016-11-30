@@ -1,0 +1,142 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="textMedeum">12sp</dimen>
+    <dimen name="top_margin_small">5dp</dimen>
+    <dimen name="text_size_medium">30dp</dimen>
+    <dimen name="toolbar">57dp</dimen>
+    <dimen name="text_size_card">12dp</dimen>
+    <dimen name="alert">70dp</dimen>
+    <dimen name="mainalert">400dp</dimen>
+    <dimen name="smallPadding">2dp</dimen>
+    <dimen name="padding_text">3dp</dimen>
+    <dimen name="imgsize">250dp</dimen>
+    <dimen name="imagesize">250dp</dimen>
+    <dimen name="userListPlaceHolderIV">100dp</dimen>
+    <dimen name="searchBarPadding">10dp</dimen>
+    <dimen name="cardElevation">5dp</dimen>
+    <dimen name="homeViewWidth">1dp</dimen>
+    <dimen name="viewPagerHeight">150dp</dimen>
+    <dimen name="textNewsTitle">16sp</dimen>
+    <dimen name="newsImageHeight">200dp</dimen>
+    <dimen name="textImageDetailDescription">16sp</dimen>
+    <dimen name="viewHeightNewsDetail">1dp</dimen>
+    <dimen name="text14">14sp</dimen>
+    <dimen name="text12">12sp</dimen>
+    <dimen name="text15">15sp</dimen>
+    <dimen name="text16">16sp</dimen>
+
+    <!--login Screen-->
+    <dimen name="activity_button_width">200dp</dimen>
+    <dimen name="activity_top_login_margin">20dp</dimen>
+    <dimen name="margin_Top">40dp</dimen>
+    <dimen name="imagesignup">24dp</dimen>
+    <dimen name="signuplogo">160dp</dimen>
+    <dimen name="signButtonMargin">25dp</dimen>
+
+    <!--MainActivity-->
+    <dimen name="drawerWidth">75dp</dimen>
+    <dimen name="listWidth">100dp</dimen>
+    <!--Comment Screen-->
+    <dimen name="TypeCommentHeight">50dp</dimen>
+    <dimen name="TextCommentList">14sp</dimen>
+    <dimen name="TextCommentListBigText">16sp</dimen>
+    <dimen name="commenViewHeight">0.5dp</dimen>
+    <dimen name="CommentPaddingLeft">2dp</dimen>
+    <dimen name="CommentUserImage">65dp</dimen>
+    <dimen name="CommentElementHeight">80dp</dimen>
+    <dimen name="CommentOverLayHeight">80.5dp</dimen>
+    <dimen name="CommentOverlayImage">30dp</dimen>
+    <dimen name="commentTextMaxHeight">30dp</dimen>
+    <dimen name="CommentStatusChangeLayoutHeight">40dp</dimen>
+    <dimen name="ImageNewDesc">160dp</dimen>
+
+    <!---Event Screent-->
+    <dimen name="heightlayout">200dp</dimen>
+
+    <!---Event Screent-->
+    <dimen name="EventStatusImage">20dp</dimen>
+    <dimen name="EventAlertMessageTextHeight">50dp</dimen>
+    <dimen name="EventAlertEditHeight">37dp</dimen>
+    <dimen name="EventAlertButtonMargin">30dp</dimen>
+    <dimen name="EventStatusListTitleImage">24dp</dimen>
+    <dimen name="EventStatusListTitleImagePadding">30dp</dimen>
+    <dimen name="EventUpdateStatusLayoutHeight">50dp</dimen>
+    <dimen name="EventPhotoHeight">160dp</dimen>
+    <dimen name="ColoumnWidth">100dp</dimen>
+
+    <dimen name="eventlistHeight">40dp</dimen>
+    <!---Comment-->
+    <dimen name="swipeLayout">70dp</dimen>
+    <!---News-->
+    <dimen name="newsDetailWidthImage">20dp</dimen>
+    <!---Feedback-->
+    <dimen name="subjectHeight">40dp</dimen>
+    <dimen name="feedbackHeight">200dp</dimen>
+    <dimen name="buttonHeight">40dp</dimen>
+
+    <!---StatusList-->
+    <dimen name="circulerimageevent">70dp</dimen>
+    <!---View Height-->
+    <dimen name="viewHeight">2dp</dimen>
+    <!---Padding-->
+    <dimen name="paddingSmall">5dp</dimen>
+    <dimen name="paddingMedium">10dp</dimen>
+    <dimen name="paddingForgetPass">20dp</dimen>
+    <dimen name="paddinglarge">20dp</dimen>
+    <dimen name="defaultpadding">16dp</dimen>
+    <dimen name="padding_large">50dp</dimen>
+    <dimen name="paddingdefaultLarge">64dp</dimen>
+
+    <!---profile-->
+    <dimen name="imageheight">200dp</dimen>
+    <dimen name="paddingButtom">30dp</dimen>
+    <dimen name="circuleruser">70dp</dimen>
+    <dimen name="marginRight">12dp</dimen>
+
+    <!---Margin-->
+    <dimen name="margin_top_large">50dp</dimen>
+    <dimen name="activity_rightleft_login">50dp</dimen>
+    <dimen name="margin_medium">10dp</dimen>
+    <dimen name="top_margin_medium">20dp</dimen>
+    <dimen name="margin_top_medium">20dp</dimen>
+    <dimen name="top_margin_large">30dp</dimen>
+    <dimen name="extraLargemargin">50dp</dimen>
+    <dimen name="activity_login_margin">37dp</dimen>
+    <dimen name="magin_large">20dp</dimen>
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="activity_eventphoto_margin">16dp</dimen>
+    <dimen name="activity_eventPhoto_horizontal_margin">16dp</dimen>
+
+    <!---Forget Password-->
+    <dimen name="buttonrecover">120dp</dimen>
+
+    <!---Network-->
+    <dimen name="circulerImage">80dp</dimen>
+
+    <!---Text Size-->
+    <dimen name="text_size_small">20dp</dimen>
+    <dimen name="text_size_large">40dp</dimen>
+
+    <!---About Us-->
+    <dimen name="marginTop">57dp</dimen>
+
+    <!---ChangePassword-->
+    <dimen name="widthButton">120dp</dimen>
+
+
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="text18">18sp</dimen>
+    <dimen name="FundRaisingDiscriptionTextMargin">15dp</dimen>
+    <dimen name="FundRaisingTextMarginTop">10dp</dimen>
+
+
+    <!--Gallary Adapter-->
+    <dimen name="mailRelativeLayoutWidth">160dp</dimen>
+    <dimen name="mailRelativeLayoutHeight">160dp</dimen>
+    <dimen name="albumImageHeight">130dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="AlbumNameHeight">30dp</dimen>
+    <dimen name="FundRaisingImageHeight">220dp</dimen>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#27BB9B</color>
+    <color name="colorPrimaryDark">#97DECF</color>
+    <color name="colorAccent">#27BB9B</color>
+    <color name="colorWhite">#FFFFFFFF</color>
+    <color name="colorGrey">#FFECECEC</color>
+    <color name="colorEventSelected">#fafafa</color>
+    <color name="colorOrange">#FFF4AD50</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorgreySearch">#FFB5B5B5</color>
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorNewsDetailView">#D3D3D3</color>
+    <color name="colorTransparentBlack">#5000</color>
+    <color name="colorTransparentGray">#4000</color>
+    <color name="colorGreyProfile">#FF969696</color>
+    <color name="colorBlueProfile">#FF5695D8</color>
+    <color name="colorBlue">#1874CD</color>
+    <color name="colorUserBackground">#EEEEEE</color>
+</resources>

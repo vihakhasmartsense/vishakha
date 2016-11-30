@@ -1,0 +1,230 @@
+<resources>
+    <string name="app_name">DemoNew</string>
+    <string name="oneSignalAppId">05a23f01-4851-4f08-b986-82a82cc901cc</string>
+    <string name="googleProjectNumber">23707267697</string>
+
+    <!--main activity strings-->
+    <string name="passwordError">Enter Valid Password</string>
+    <string name="usernameError">Enter Valid Contact Number</string>
+    <string name="passwordLengthError">Enter Password Greater than 6</string>
+    <string name="contactLengthError">Contact no Length is required 7 to 10 digit</string>
+    <string name="loginFail">Login successfull</string>
+    <string name="loginSucess">Login Fail</string>
+
+    <string name="mobileNumberLoginWithCountryCode">254 xxxxx1234</string>
+    <string name="mobileNumberLogin">Mobile Number</string>
+    <string name="passwordLogin">Password</string>
+    <string name="btnLogin">Login</string>
+    <string name="forgetPassword">Forget Password</string>
+    <string name="newUserSignUp">New here? Sign Up</string>
+    <string name="loginLabel">Login</string>
+
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="familyMember">Family Member</string>
+    <string name="textContact">Enter Your Mobile Number</string>
+
+    <string name="signUp">Sign Up</string>
+    <string name="signupButtonText">Sign up</string>
+    <string name="back">Back</string>
+    <string name="recover">Recover</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="resendOTP">Resend OTP</string>
+    <string name="enterOTP">Enter OTP</string>
+    <string name="changePasswordLabel">Change Password</string>
+    <string name="aboutus">About Us</string>
+    <string name="eventName">Event Name</string>
+    <string name="share">Share</string>
+    <string name="going">Going</string>
+    <string name="interest">Interested</string>
+    <string name="cantgo">Can\'\ t Go</string>
+    <string name="noygoing">Not Going</string>
+    <string name="eventcalender">Event Calender</string>
+
+    <string name="newPassword">New Password</string>
+    <string name="confirmNewPassword">Confirm New Password</string>
+
+    <string name="feedbackName">Name</string>
+    <string name="feedbackMobile">Mobile</string>
+    <string name="feedbackSubject">Subject</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedbackSent">Send</string>
+
+    <string name="more1">Intro &amp; History</string>
+    <string name="more2">Event Photos</string>
+    <string name="more3">Feedback</string>
+    <string name="more4">About Us</string>
+    <string name="more5">Fund Raising</string>
+    <string name="more6">Sign Out</string>
+
+    <string name="search">Find Gam Member</string>
+    <string name="searchlocation">Search Location</string>
+    <string name="emptyUserList">Curruntly there are no \n users in your network</string>
+
+    <string name="commentEmpty">Enter Comment</string>
+    <string name="commentLength">Can not enter more than 200 characters.</string>
+
+    <string name="enterrequiredfiels">Enter Required Field</string>
+    <string name="enterfamilymember">Family Member is required</string>
+    <string name="enterfirstnm">First name is required</string>
+    <string name="enterlastnm">Last name is required</string>
+    <string name="enterpassword">Password is required</string>
+    <string name="passwordlength">Password has to be an alphanumeric and minimum 7 characters long.</string>
+    <string name="contactError">Mobile No. is required</string>
+    <string name="ErrorContactLength">Mobile No. has to be a numeric value (7-14 digits).</string>
+    <string name="loginSuccess">Login Success</string>
+    <string name="passwordUpdate">password update</string>
+    <string name="subjectrequired">Enter valid feedback subject</string>
+    <string name="enterFeedback">Enter feedback</string>
+    <string name="thanku">Thank you </string>
+    <string name="enternewpassword">Enter New Password</string>
+    <string name="enterConfirmPassword">Enter Confirm Password</string>
+    <string name="passwordupdate">Password Update</string>
+    <string name="passwordmatch">Password cant match enter valid confirm password</string>
+    <string name="resenedcode">Resend code successfully</string>
+    <string name="fundInfo">More Info</string>
+    <string name="profileNameFirst">First Name :</string>
+    <string name="profileNameLast">Last Name :</string>
+    <string name="profileNumver">Mobile No. :</string>
+    <string name="profileLocation">Location :</string>
+    <string name="profileDOB">D. O. B. :</string>
+    <string name="profileMemberShipNo">Membership No. :</string>
+    <string name="profileBloodGroud">Blood Group :</string>
+    <string name="profileEmail">Email :</string>
+    <string name="profileFacebook">Facebook :</string>
+
+    <string name="seephotos">see photos...</string>
+    <string name="lableSelectLocation">Select Location</string>
+
+    <string name="searchNews">Search News Category</string>
+    <!--Process message-->
+    <string name="msgPleaseWait">Please wait..</string>
+    <string name="msgCheckInternet">Please check your internet connection</string>
+    <string name="msgInternetAppersOffline">The internet connection appears to be offline.</string>
+    <string name="msgSomethigWentWrong">Something went wrong please try again later.</string>
+    <string name="msgOtpNotMatch">Otp does not match</string>
+    <string name="profile">Profile</string>
+    <string name="eventPhotos">Event Photos</string>
+
+    <string name="commentValidationlessthan200">Can not enter more than 200 characters.</string>
+    <string name="comment">Comments</string>
+    <string name="addComment">Add a comment</string>
+    <string name="eventInfo">Event Info</string>
+    <string name="organized">Organized By : </string>
+    <!--manifest-->
+    <string name="lableUserVerify">Verify Otp</string>
+    <string name="lableNewsDetailActivity">News</string>
+    <string name="lableNewsCommentActivity">Comments</string>
+    <string name="labelNewsComment">Comments</string>
+    <string name="labelEventDetail">Event Info</string>
+    <string name="labelProfile">Profile</string>
+    <string name="labelEventPhotos">Event Photos</string>
+    <string name="labelFundRaising">Fund Raising</string>
+
+
+    <!--Location-->
+    <string name="lableLocation">Select Location</string>
+    <!--Comment Screen-->
+    <string name="SendComment">Send</string>
+    <string name="hintAddComment">Add a comment</string>
+    <string name="msgCommentAdded">Comment added</string>
+
+    <!--EventStausList-->
+    <string name="TitleGoing">Going</string>
+    <string name="Titlenterested">Interested</string>
+    <string name="TitleNotGoing">Not Going</string>
+    <string name="TitleCantGo">Can"\'"t Go</string>
+    <string name="EventAlertYes">Yes</string>
+    <string name="EventAlertConfirm">Confirm</string>
+    <string name="EventAlertCancel">Cancel</string>
+    <string name="EventAlertNo">No</string>
+    <string name="EventAlertCountHint">Number of family member</string>
+    <string name="EventAlertFaimlyMemberMessage">Number of family member :</string>
+    <string name="EventAlertGoingMessage">Are you going ?</string>
+    <string name="EventAlertInterestMessage">Are you interested ?</string>
+    <string name="EventAlertNotGoingMessage">Are you not going ?</string>
+    <string name="msgEnterFamilyMember">Please enter valid other family member.</string>
+    <string name="msgStatusCanNotUpdate">Cant update status before 3 days</string>
+    <string name="msgStatusCanNotUpdateNotGoing">Cant update status</string>
+    <string name="clear">Clear</string>
+
+
+    <string name="titlenews">News Feed</string>
+    <string name="titleEvent">Event Calendar</string>
+    <string name="titleProfile">Profile</string>
+    <string name="titleNetwork">My Network</string>
+    <string name="titlePhotos">Event Photos</string>
+    <string name="titleMore">More</string>
+
+    <string name="lableFundRaising">Fund Raising</string>
+    <string name="fundRaising">Fund Raising</string>
+    <string name="fundInfoMore">More Info</string>
+    <string name="fundInfoLess">Less Info</string>
+    <string name="fundFragmentMoreTextSummary">Summary : </string>
+
+    <!--FeedBack -->
+    <string name="feedbackFeildEmpty">Enter required field.</string>
+    <string name="feedbackSubjectValid">Please enter valid subject (5-50 chars).</string>
+    <string name="feedbackSubjetRequired">Subject is required.</string>
+    <string name="feedbackValid">Please enter valid feedback (50-2000 chars).</string>
+    <string name="feedbackRequired">Feedback is required.</string>
+    <string name="feedbackSuccess">Feedback .</string>
+
+
+    <array name="bloodGroups">
+        <item>O+</item>
+        <item>O-</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+    </array>
+
+
+    <!--Update Profile-->
+    <string name="addLocation">Add Location</string>
+    <string name="locationRequiredError">Location Required</string>
+    <string name="alertLocationTitle">Add Location</string>
+    <string name="alertDoneText">Done</string>
+    <string name="alertCancelText">Cancel</string>
+    <string name="alertSelectPic">Select</string>
+    <string name="takePhoto">Camera</string>
+    <string name="selectYourPhoto">Photo Library</string>
+    <string name="selectSources">Select Source</string>
+
+
+    <!--News Filter-->
+    <array name="newsCatagory">
+        <item>Technology</item>
+        <item>Business</item>
+        <item>Educational</item>
+        <item>Politics</item>
+        <item>Sarpanch News Letter</item>
+        <item>Death</item>
+        <item>Entertainment</item>
+        <item>News</item>
+        <item>Sports</item>
+
+    </array>
+
+    <!--UserFragment-->
+    <string name="email">Email (Optional)</string>
+    <string name="facebook">FB Username (Optional)</string>
+    <string name="BloodGroop">Blood Group</string>
+    <string name="DateOfBirth">D.O.B.</string>
+    <string name="Location">Location</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
+    <string name="HintD.O.B">D.O.B. (optional)</string>
+    <string name="HintLocation">Location (optional)</string>
+    <string name="HintBloodGroup">Blood Group (optional)</string>
+
+    <!--LikeCommentUpdate-->
+    <string name="commnetAddad">Comment added.</string>
+    <string name="commnetUpdate">Comment edited.</string>
+    <string name="commnetDelete">Comment deleted.</string>
+    <string name="permission_message">We need to write on disk to use camera.</string>
+</resources>
