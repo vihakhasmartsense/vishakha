@@ -1,5 +1,7 @@
 package com.example.ronak.demonew;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -242,6 +244,7 @@ public class NewsFeedModel implements NewsFeedModelInt {
 
     private void sendNewsData(JSONObject newsJsonObj, NewsDetailCallback newsDetailCallback) {
         NewsObject newsObject = new NewsObject();
+        Log.e("log here","nes title "+newsObject.getNewsTitle());
         newsObject.setNewsId(newsJsonObj.optString("newsId"));
         newsObject.setNewsTitle(newsJsonObj.optString("newsTitle"));
         newsObject.setNewsDescription(newsJsonObj.optString("newsDescription"));

@@ -45,13 +45,13 @@ public class MainActivity extends Activity implements LoginInt {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    int start;
+    String tok = SharedPreferenceUtil.getString("token","null");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!SharedPreferenceUtil.getString(Constants.UserData.token, Constants.RequestConstants.DefaultToken).equalsIgnoreCase(Constants.RequestConstants.DefaultToken)) {
-            UtilClass.changeActivity(MainActivity.this, NeewsFeed.class, false);
-            Log.e("Login","Complete");
+        if(tok != null) {
+            UtilClass.changeActivity(MainActivity.this, NeewsFeed.class, true);
+            Log.e("Login","Complete "+SharedPreferenceUtil.getString("token","null Token"));
         }
         else {
             setContentView(R.layout.activity_main);
@@ -116,7 +116,7 @@ public class MainActivity extends Activity implements LoginInt {
                         if (logiObject != null) {
                             if (logiObject.optInt("status") == Constants.ResponseCode.LoginSuccessCode) {
                                 SharedPreferenceUtil.putValue(Constants.UserData.token, logiObject.optString("token"));
-                                Toast.makeText(getApplicationContext(),"NewsFeed Open",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),"NewsFeed Open",Toast.LENGTH_SHORT).show();
                                 JSONObject userObject = logiObject.optJSONObject("user");
                                 if (userObject != null) {
                                     try {
