@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
     private RequestPresenter requestPresenter;
@@ -62,7 +64,7 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    Button btnSignOut;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,15 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
         } else {
             //UtilClass.displyMessage(getString(R.string.msgCheckInternet), (View.OnClickListener) this, 0);
         }
+        btnSignOut = (Button) findViewById(R.id.btnSignout);
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferenceUtil.clear();
+                SharedPreferenceUtil.save();
+                UtilClass.changeActivity(NeewsFeed.this,MainActivity.class,true);
+            }
+        });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();

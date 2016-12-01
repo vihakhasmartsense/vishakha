@@ -45,37 +45,42 @@ public class MainActivity extends Activity implements LoginInt {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    int start;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        etLoginId = (EditText) findViewById(R.id.etLoginId);
-        loginInt = this;
-        etLoginPassword = (EditText) findViewById(R.id.etLoginPassword);
-        etLoginId.setText("7069102725");
-        etLoginPassword.setText("vishakha");
-        tvForgetPassword = (TextView) findViewById(R.id.tvForgetPassword);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UtilClass.closeKeyboard(MainActivity.this);
-                if (UtilClass.isInternetAvailabel(MainActivity.this)) {
-                    doLogin(etLoginId.getText().toString(), etLoginPassword.getText().toString());
-                    //  presenter.validateCredentials(etLoginId.getText().toString(), etLoginPassword.getText().toString(), this, this);
-                    //UtilClass.changeActivity(MainActivity.this, NeewsFeed.class, true);
+        if(!SharedPreferenceUtil.getString(Constants.UserData.token, Constants.RequestConstants.DefaultToken).equalsIgnoreCase(Constants.RequestConstants.DefaultToken)) {
+            UtilClass.changeActivity(MainActivity.this, NeewsFeed.class, false);
+            Log.e("Login","Complete");
+        }
+        else {
+            setContentView(R.layout.activity_main);
+            etLoginId = (EditText) findViewById(R.id.etLoginId);
+            loginInt = this;
+            etLoginPassword = (EditText) findViewById(R.id.etLoginPassword);
+            etLoginId.setText("7069102725");
+            etLoginPassword.setText("vishakha");
 
-                } else {
+            tvForgetPassword = (TextView) findViewById(R.id.tvForgetPassword);
+            btnLogin = (Button) findViewById(R.id.btnLogin);
+            btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UtilClass.closeKeyboard(MainActivity.this);
+                    if (UtilClass.isInternetAvailabel(MainActivity.this)) {
+                        doLogin(etLoginId.getText().toString(), etLoginPassword.getText().toString());
 
-                    UtilClass.displyMessage(getString(R.string.msgCheckInternet), context, 0);
+                    } else {
 
+                        UtilClass.displyMessage(getString(R.string.msgCheckInternet), context, 0);
+
+                    }
                 }
-            }
-        });
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+            });
+            // ATTENTION: This was auto-generated to implement the App Indexing API.
+            // See https://g.co/AppIndexing/AndroidStudio for more information.
+            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        }
     }
 
 
