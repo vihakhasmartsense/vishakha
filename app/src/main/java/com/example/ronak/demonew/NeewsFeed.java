@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -64,13 +65,17 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    Button btnSignOut;
+    Button btnSignOut,btnChangePass;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neews_feed);
         ButterKnife.bind(this);
         mLayoutManager = new LinearLayoutManager(this);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar.setTitle("Newsfeed");
+        //toolbar.setTitleTextColor();
         if (UtilClass.isInternetAvailabel(this)) {
             UtilClass.showProgress(this, getString(R.string.msgPleaseWait));
             getNewsData();
@@ -86,6 +91,14 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
                 SharedPreferenceUtil.clear();
                 SharedPreferenceUtil.save();
                 UtilClass.changeActivity(NeewsFeed.this,MainActivity.class,true);
+            }
+        });
+
+        btnChangePass = (Button)findViewById(R.id.btnChangePass);
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UtilClass.changeActivity(NeewsFeed.this,ChangePasswordActivity.class,false);
             }
         });
         // ATTENTION: This was auto-generated to implement the App Indexing API.

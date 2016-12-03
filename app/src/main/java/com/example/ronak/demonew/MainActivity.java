@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements LoginInt {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!SharedPreferenceUtil.getString("token","null token").equalsIgnoreCase(null)) {
+        if(!SharedPreferenceUtil.getString("token","null token").equalsIgnoreCase("null token")) {
             UtilClass.changeActivity(MainActivity.this, NeewsFeed.class, true);
             Log.e("Login","Complete "+SharedPreferenceUtil.getString("token","null Token"));
         }
