@@ -135,7 +135,13 @@ public class MainActivity extends Activity implements LoginInt {
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserRegistrationId, userObject.optString("userRegistrationId"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.isVerified, userObject.optBoolean("isVerified"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserFBProfileName, userObject.optString("userFBProfileName"));
-                                        SharedPreferenceUtil.save();
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserEmail, userObject.optString("email"));
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserDOB, userObject.optString("userDOB"));
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserLocationName, userObject.optString("locationName"));
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserBloodGroup, userObject.optString("userBloodGroup"));
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserRegistrationId, userObject.optString("userRegistrationId"));
+                                        SharedPreferenceUtil.putValue(Constants.UserData.isVerified, userObject.optBoolean("isVerified"));
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserFBProfileName, userObject.optString("userFBProfileName"));SharedPreferenceUtil.save();
 
                                     } catch (Exception e) {
                                         e.printStackTrace();

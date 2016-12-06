@@ -30,6 +30,7 @@ import com.example.ronak.demonew.Util.Constants;
 import com.example.ronak.demonew.Util.UtilClass;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.auth.api.signin.EmailSignInConfig;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.mpt.storage.SharedPreferenceUtil;
 
@@ -65,7 +66,7 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-    Button btnSignOut,btnChangePass;
+    Button btnSignOut,btnChangePass,btnUserProfile;
     Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +100,13 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
             @Override
             public void onClick(View view) {
                 UtilClass.changeActivity(NeewsFeed.this,ChangePasswordActivity.class,false);
+            }
+        });
+        btnUserProfile = (Button) findViewById(R.id.btnUserProfile);
+        btnUserProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UtilClass.changeActivity(NeewsFeed.this,EditProfileActivity.class,false);
             }
         });
         // ATTENTION: This was auto-generated to implement the App Indexing API.
