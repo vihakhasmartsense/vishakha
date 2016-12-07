@@ -56,6 +56,7 @@ public class Constants {
     public static class UserData {
         public static String UserId = "userId";
         public static String UserMobileNo = "userMobileNo";
+        public static String UserMiddleName = "userMiddleName";
         public static String UserFirstName = "userFirstName";
         public static String UserLastName = "userLastName";
         public static String UserLocationId = "locationId";

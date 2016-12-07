@@ -128,6 +128,7 @@ public class ProfileUpdateModel implements ProfileUpdateModelInt {
         SharedPreferenceUtil.putValue(Constants.UserData.UserId, userData.optString("userId"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserMobileNo, userData.optString("userMobileNo"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserFirstName, userData.optString("userFirstName"));
+        SharedPreferenceUtil.putValue(Constants.UserData.UserMiddleName, userData.optString("userMiddleName"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserLastName, userData.optString("userLastName"));
         JSONObject locationObj = userData.optJSONObject("userLocation");
         if (locationObj != null) {

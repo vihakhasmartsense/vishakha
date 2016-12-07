@@ -10,15 +10,20 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.ronak.demonew.Util.Constants;
 import com.example.ronak.demonew.Util.UtilClass;
@@ -45,14 +50,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.OnFocusChange;
 import cn.qqtheme.framework.picker.OptionPicker;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
-public class EditProfileActivity extends AppCompatActivity implements ProfileUpdateCallback, UploadInterface {
-    EditText fname, lname, middleName, bloodgroup, dOB, email, facebooID, mobileNumber,location;
+import static com.example.ronak.demonew.R.id.tool_bar_profile;
+
+public class EditProfileActivity extends FragmentActivity implements ProfileUpdateCallback, UploadInterface {
+    EditText fname, lname, middleName, bloodgroup, dOB, email, fatherName, mobileNumber,location;
     ImageView ivProfilePhotoSmall, ivProfilePhoto,ivEditIcon;
     private ProfileUpdatePresenter mProfileUpdatePresenter;
     private TimePickerDialog mDialogAll;
+    Toolbar toolbarProfile;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM,yyyy");
     private Calendar calendar = Calendar.getInstance();
     private int selectedPosition;
@@ -68,10 +77,34 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
      */
     private GoogleApiClient client;
 
+    @OnFocusChange(R.id.etProfileEditProfileFirstName)
+    public void fname(){
+        UtilClass.closeKeyboard(EditProfileActivity.this);
+        if (!fname.hasFocus()) {
+            if (!fname.getTag().toString().equalsIgnoreCase(fname.getText().toString())) {
+                if (mProfileUpdatePresenter == null) {
+                    mProfileUpdatePresenter = new ProfileUpdatePresenter();
+                }
+                Map<String, String> params = new HashMap();
+                if (!TextUtils.isEmpty(fname.getText().toString().trim())) {
+                    fname.setTag(fname.getText().toString());
+                    params.put("userFirstName", fname.getText().toString());
+                    mProfileUpdatePresenter.updateUserDetail(params, SharedPreferenceUtil.getString(Constants.UserData.UserId, ""), EditProfileActivity.this);
+                }
+            }
+        } else {
+            boolean isAnyEmpty = changeFocusIfEmpty(fname);
+            if (!isAnyEmpty) {
+                fname.setCursorVisible(true);
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        toolbarProfile = (Toolbar) findViewById(tool_bar_profile);
+        toolbarProfile.setTitle("Profile");
         fname = (EditText) findViewById(R.id.etProfileEditProfileFirstName);
         lname = (EditText) findViewById(R.id.etProfileEditLastName);
         bloodgroup = (EditText) findViewById(R.id.etEditProfileBloodGroup);
@@ -79,8 +112,8 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
         email = (EditText) findViewById(R.id.etEditProfileEmail);
         ivProfilePhoto = (ImageView) findViewById(R.id.ivProfilePhoto);
         ivProfilePhotoSmall = (ImageView) findViewById(R.id.ivProfilePhotoSmall);
+        fatherName = (EditText) findViewById(R.id.etEditProfileMiddleName);
         location = (EditText) findViewById(R.id.etEditProfileLocation);
-        //facebooID = (EditText) findViewById(R.id.tvProfileFacebbokId);
         mobileNumber = (EditText) findViewById(R.id.etProfileMobileNumber);
         ivEditIcon = (ImageView) findViewById(R.id.ivEditIcon);
 
@@ -141,15 +174,37 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
         email.setText(SharedPreferenceUtil.getString(Constants.UserData.UserEmail, ""));
         email.setTag(SharedPreferenceUtil.getString(Constants.UserData.UserEmail, ""));
 
-//        etEditProfileMiddleName.setText(SharedPreferenceUtil.getString(Constants.UserData.UserMiddleName, ""));
-//        etEditProfileMiddleName.setTag(SharedPreferenceUtil.getString(Constants.UserData.UserMiddleName, ""));
+        fatherName.setText(SharedPreferenceUtil.getString(Constants.UserData.UserMiddleName, ""));
+        fatherName.setTag(SharedPreferenceUtil.getString(Constants.UserData.UserMiddleName, ""));
         mobileNumber.setEnabled(false);
         fname.setCursorVisible(false);
-        //this.activity = getActivity();
         loadProfilePic(SharedPreferenceUtil.getString(Constants.UserData.UserProfilePic, ""));
-        // presenter = new PresenterClass();
 
 
+        fatherName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                UtilClass.closeKeyboard(EditProfileActivity.this);
+                if (!fatherName.hasFocus()) {
+                    if (!fatherName.getTag().toString().equalsIgnoreCase(fatherName.getText().toString())) {
+                        if (mProfileUpdatePresenter == null) {
+                            mProfileUpdatePresenter = new ProfileUpdatePresenter();
+                        }
+                        Map<String, String> params = new HashMap();
+                        if (!TextUtils.isEmpty(fatherName.getText().toString().trim())) {
+                            fatherName.setTag(fatherName.getText().toString());
+                            params.put("userMiddleName", fatherName.getText().toString());
+                            mProfileUpdatePresenter.updateUserDetail(params, SharedPreferenceUtil.getString(Constants.UserData.UserId, ""), EditProfileActivity.this);
+                        }
+                    }
+                } else {
+                    boolean isAnyEmpty = changeFocusIfEmpty(fatherName);
+                    if (!isAnyEmpty) {
+                        fatherName.setCursorVisible(true);
+                    }
+                }
+            }
+        });
         location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -341,7 +396,6 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
                             mProfileUpdatePresenter=new ProfileUpdatePresenter();
                             params.put("userLocation", locationId+"");
                             mProfileUpdatePresenter.updateUserDetail(params, SharedPreferenceUtil.getString(Constants.UserData.UserId, ""), EditProfileActivity.this);
-                            //updateCity();
                         }
                     }
                 } catch (JSONException e) {
@@ -365,8 +419,6 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private Activity activity;
-
     private void loadProfilePic(final String url) {
             this.runOnUiThread(new Runnable() {
                 @Override
@@ -383,6 +435,7 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
         params.put("userProfilePicture", file.getAbsoluteFile().toString());
         WebServiceUtil webServiceUtil = new WebServiceUtil(this, UtilClass.getProfileUpdateUrl(SharedPreferenceUtil.getString(Constants.UserData.UserId, "")), params, true, params, this);
         webServiceUtil.execute();
+
     }
     private String getDateOfBirthToSend(String dob) {
         SimpleDateFormat dateFormate1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -436,9 +489,11 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
                 .setWheelItemTextSelectorColor(ActivityCompat.getColor(this, R.color.colorBlack))
                 .setWheelItemTextSize(18)
                 .build();
-        //mDialogAll.show(getChildFragmentManager(), "month");
+        mDialogAll.show(getSupportFragmentManager(), "month");
         mDialogAll.setCancelable(false);
+
     }
+
 
     private void openBloodGroupSelector() {
         final String[] options = getResources().getStringArray(R.array.bloodGroups);
@@ -505,20 +560,21 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
             lname.setCursorVisible(true);
             return true;
         }
-// else if (TextUtils.isEmpty(etEditProfileMiddleName.getText().toString())) {
-//            etEditProfileMiddleName.requestFocus();
-//            et.setCursorVisible(false);
-//            UtilClass.displyMessage("Father's full name is required", getActivity(), 0);
-//            etEditProfileMiddleName.setCursorVisible(true);
-//            return true;
-//        }
-//            else if (etEditProfileMiddleName.getText().toString().length() > 50) {
-//            etEditProfileMiddleName.requestFocus();
-//            et.setCursorVisible(false);
-//            UtilClass.displyMessage(getString(R.string.middleNameCharacter50), getActivity(), 0);
-//            etEditProfileMiddleName.setCursorVisible(true);
-//            return true;
-//        }
+        else if (TextUtils.isEmpty(fatherName.getText().toString())) {
+            fatherName.requestFocus();
+            et.setCursorVisible(false);
+            UtilClass.displyMessage("Father's full name is required", this, 0);
+            fatherName.setCursorVisible(true);
+            return true;
+        }
+            else if (fatherName.getText().toString().length() > 50) {
+            fatherName.requestFocus();
+            et.setCursorVisible(false);
+            Toast.makeText(this,"Middle name Charater allow only %0 characters",Toast.LENGTH_SHORT).show();
+            //UtilClass.displyMessage(getString(R.string.middleNameCharacter50), getActivity(), 0);
+            fatherName.setCursorVisible(true);
+            return true;
+        }
         else if (TextUtils.isEmpty(mobileNumber.getHint().toString())) {
             middleName.requestFocus();
             et.setCursorVisible(false);
@@ -649,6 +705,7 @@ public class EditProfileActivity extends AppCompatActivity implements ProfileUpd
     public void onFailUpload(String message) {
         UtilClass.hideProgress();
     }
+
 
 
 }
