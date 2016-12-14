@@ -15,9 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.example.ronak.demonew.Application.MadhaparGamApp;
 import com.example.ronak.demonew.Util.Constants;
@@ -29,6 +32,7 @@ import com.mpt.storage.SharedPreferenceUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +68,15 @@ public class MainActivity extends Activity implements LoginInt {
             etLoginPassword = (EditText) findViewById(R.id.etLoginPassword);
             etLoginId.setText("7069102725");
             etLoginPassword.setText("vishakha");
-
+            tvUserSignUp = (TextView) findViewById(R.id.tvUserSignUp);
+            tvUserSignUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    UtilClass.closeKeyboard(MainActivity.this);
+                    UtilClass.hideProgress();
+                    UtilClass.changeActivity(MainActivity.this, SignUpActivity.class, false);
+                }
+            });
             tvForgetPassword = (TextView) findViewById(R.id.tvForgetPassword);
             btnLogin = (Button) findViewById(R.id.btnLogin);
             btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +136,6 @@ public class MainActivity extends Activity implements LoginInt {
                                 SharedPreferenceUtil.putValue(Constants.UserData.token, logiObject.optString("token"));
                                 //SharedPreferenceUtil.save();
                                 Log.e("save","Complete "+SharedPreferenceUtil.getString("token","null Token"));
-                                //Toast.makeText(getApplicationContext(),"NewsFeed Open",Toast.LENGTH_SHORT).show();
                                 JSONObject userObject = logiObject.optJSONObject("user");
                                 if (userObject != null) {
                                     try {
@@ -132,27 +143,34 @@ public class MainActivity extends Activity implements LoginInt {
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserMobileNo, userObject.optString("userMobileNo"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserFirstName, userObject.optString("userFirstName"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserLastName, userObject.optString("userLastName"));
-                                        SharedPreferenceUtil.putValue(Constants.UserData.UserLocationId, userObject.optString("locationId"));
-                                        SharedPreferenceUtil.putValue(Constants.UserData.UserLocationName, userObject.optString("locationName"));
-                                        SharedPreferenceUtil.putValue(Constants.UserData.UserProfilePic, userObject.optString("userProfilePic"));
+                                        JSONObject locationObj = userObject.optJSONObject("location");
+                                        if(locationObj!=null) {
+                                            SharedPreferenceUtil.putValue(Constants.UserData.UserLocationId, locationObj.optString("locationId"));
+                                            SharedPreferenceUtil.putValue(Constants.UserData.UserLocationName, locationObj.optString("locationName"));
+                                            Log.e("location", "in login" + SharedPreferenceUtil.getString(Constants.UserData.UserLocationName, ""));
+                                        }
+                                         SharedPreferenceUtil.putValue(Constants.UserData.UserProfilePic, userObject.optString("userProfilePic"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserRegistrationId, userObject.optString("userRegistrationId"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.isVerified, userObject.optBoolean("isVerified"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserFBProfileName, userObject.optString("userFBProfileName"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserEmail, userObject.optString("email"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserDOB, userObject.optString("userDOB"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserMiddleName, userObject.optString("userMiddleName"));
-                                        SharedPreferenceUtil.putValue(Constants.UserData.UserLocationName, userObject.optString("locationName"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserBloodGroup, userObject.optString("userBloodGroup"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.UserRegistrationId, userObject.optString("userRegistrationId"));
                                         SharedPreferenceUtil.putValue(Constants.UserData.isVerified, userObject.optBoolean("isVerified"));
-                                        SharedPreferenceUtil.putValue(Constants.UserData.UserFBProfileName, userObject.optString("userFBProfileName"));SharedPreferenceUtil.save();
+                                        SharedPreferenceUtil.putValue(Constants.UserData.UserFBProfileName, userObject.optString("userFBProfileName"));
+                                        //SharedPreferenceUtil.putValue("UserLocation",userObject.optJSONObject("userLocation").optString("locationName"));
+                                        SharedPreferenceUtil.save();
 
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
                                     UtilClass.changeActivity(MainActivity.this, NeewsFeed.class, true);
                                 }
-                                SharedPreferenceUtil.save();
+
+                                Log.e("@@@@@@@@@@@@@@@@@@@@@@@","in login"+SharedPreferenceUtil.getString(Constants.UserData.UserLocationName,""));
+
                             } else {
                                 UtilClass.displyMessage("NewsFeed Open", context, Toast.LENGTH_SHORT);
                             }
@@ -165,7 +183,24 @@ public class MainActivity extends Activity implements LoginInt {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                NetworkResponse response = error.networkResponse;
+                if (error instanceof ServerError && response != null) {
+                    try {
+                        String res = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        JSONObject obj = new JSONObject(res);
+                        Log.e("",""+obj.toString());
+                        if (obj != null) {
+                            //listener.onLoginFailError(obj.optString("message"));
+                        } else {
+                            //listener.onRequestError();
+                        }
+                    } catch (UnsupportedEncodingException e1) {
+                        e1.printStackTrace();
+                    } catch (JSONException e2) {
+                        e2.printStackTrace();
+                    }
+                }
             }
         }) {
             @Override

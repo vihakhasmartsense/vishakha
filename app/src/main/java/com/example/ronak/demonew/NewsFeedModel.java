@@ -30,7 +30,7 @@ public class NewsFeedModel implements NewsFeedModelInt {
     @Override
     public void getNewsData(final NewsListCallback newsListCallback) {
         String tag = "newsFeed";
-        StringRequest newsRequest = new StringRequest(Request.Method.GET, UtilClass.getNewsFeedUrl(), new Response.Listener<String>() {
+        StringRequest newsRequest = new StringRequest(Request.Method.GET, UtilClass.getNewsFeedUrl("", true), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -106,7 +106,7 @@ public class NewsFeedModel implements NewsFeedModelInt {
     @Override
     public void updateNewsLikeComment(final String newsId, final String newsStatus, final String newsComment, final NewsFeedModelInt.NewsLikeCommentUpdate newsLikeCommentUpdateCallback) {
         String tag = "updateLikes";
-        StringRequest likeRequest = new StringRequest(Request.Method.POST, UtilClass.getLikeUpdateUrl(), new Response.Listener<String>() {
+        StringRequest likeRequest = new StringRequest(Request.Method.POST, UtilClass.getNewsStatusUrl("", "", 0), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response != null) {
@@ -160,7 +160,7 @@ public class NewsFeedModel implements NewsFeedModelInt {
     @Override
     public void removeNewsLike(String newsStatusId, final NewsLikeCommentUpdate updateCallback) {
         String tag = "removeLike";
-        StringRequest removeLikeRequest = new StringRequest(Request.Method.DELETE, UtilClass.getRemoveLikeUrl(newsStatusId), new Response.Listener<String>() {
+        StringRequest removeLikeRequest = new StringRequest(Request.Method.DELETE, UtilClass.getNewsStatusUrl(newsStatusId,"",1), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -202,7 +202,7 @@ public class NewsFeedModel implements NewsFeedModelInt {
     @Override
     public void getNewsDetail(String newsId, final NewsDetailCallback newsDetailCallback) {
         String tag = "newsDetail";
-        StringRequest newsDetailRequest = new StringRequest(Request.Method.GET, UtilClass.getNewsDetailUrl(newsId), new Response.Listener<String>() {
+        StringRequest newsDetailRequest = new StringRequest(Request.Method.GET, UtilClass.getNewsFeedUrl(newsId, false), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response != null) {
@@ -240,11 +240,8 @@ public class NewsFeedModel implements NewsFeedModelInt {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MadhaparGamApp.getAppInstance().addToRequestQueue(newsDetailRequest, tag);
     }
-
-
-    private void sendNewsData(JSONObject newsJsonObj, NewsDetailCallback newsDetailCallback) {
+    private void sendNewsData(final JSONObject newsJsonObj, final NewsDetailCallback newsDetailCallback) {
         NewsObject newsObject = new NewsObject();
-        Log.e("log here","nes title "+newsObject.getNewsTitle());
         newsObject.setNewsId(newsJsonObj.optString("newsId"));
         newsObject.setNewsTitle(newsJsonObj.optString("newsTitle"));
         newsObject.setNewsDescription(newsJsonObj.optString("newsDescription"));
@@ -257,13 +254,14 @@ public class NewsFeedModel implements NewsFeedModelInt {
         newsObject.setNewsLikeCount(newsJsonObj.optString("newsLikes"));
         newsObject.setNewsCommentCount(newsJsonObj.optString("newsComments"));
         newsObject.setCommented(newsJsonObj.optBoolean("isCommented"));
+        newsDetailCallback.onSuccessNewsDetail(newsObject);
     }
 
 
     @Override
     public void getCommentList(String newsId, String newsStausId, final CommentListCallback commentListCallback) {
         String tag = "commentList";
-        StringRequest commentRequest = new StringRequest(Request.Method.GET, UtilClass.getCommentListUrk(newsId, newsStausId), new Response.Listener<String>() {
+        StringRequest commentRequest = new StringRequest(Request.Method.GET, UtilClass.getNewsStatusUrl(newsId, newsStausId, 2), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if (response != null) {
@@ -305,7 +303,7 @@ public class NewsFeedModel implements NewsFeedModelInt {
     @Override
     public void updateComment(final String newsId, final String newsStatus, String newsStatusId, final String newsComment, final NewsLikeCommentUpdate updateCallback) {
         String tag = "updateComment";
-        StringRequest commentUpdateRequest = new StringRequest(Request.Method.PUT, UtilClass.getCommentUpdateUrl(newsStatusId), new Response.Listener<String>() {
+        StringRequest commentUpdateRequest = new StringRequest(Request.Method.PUT, UtilClass.getNewsStatusUrl("", newsStatusId, 3), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

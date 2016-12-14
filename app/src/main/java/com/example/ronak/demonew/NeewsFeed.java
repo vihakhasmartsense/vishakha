@@ -13,6 +13,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -53,6 +56,8 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
     RecyclerView rvNewsList;
     @BindView(R.id.llNewsListPlaceholder)
     LinearLayout llNewsListPlaceholder;
+    @BindView(R.id.srlNewsList)
+    SwipeRefreshLayout srlNewsList;
     private NewsListAdapter newsDataAdapter;
     private LinearLayoutManager mLayoutManager;
     private NewsObject newsObj = new NewsObject();
@@ -75,16 +80,40 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
         ButterKnife.bind(this);
         mLayoutManager = new LinearLayoutManager(this);
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle("Newsfeed");
-        //toolbar.setTitleTextColor();
+        srlNewsList = (SwipeRefreshLayout) findViewById(R.id.srlNewsList);
+        srlNewsList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                    if (UtilClass.isInternetAvailabel(mContext)) {
+                        UtilClass.showProgress(mContext, getString(R.string.msgPleaseWait));
+                        if (requestPresenter == null) {
+                            requestPresenter = new RequestPresenter();
+                        }
+                        requestPresenter.getNewsList(NeewsFeed.this);
+                        srlNewsList.setRefreshing(true);
+                    } else {
+                        if (srlNewsList.isRefreshing()) {
+                            srlNewsList.setRefreshing(false);
+                        }
+                        UtilClass.displyMessage(getString(R.string.msgCheckInternet), mContext, 0);
+                    }
+
+            }
+        });
         if (UtilClass.isInternetAvailabel(this)) {
             UtilClass.showProgress(this, getString(R.string.msgPleaseWait));
-            getNewsData();
+            //getNewsData();
             requestPresenter = new RequestPresenter();
             requestPresenter.getNewsList(this);
         } else {
-            //UtilClass.displyMessage(getString(R.string.msgCheckInternet), (View.OnClickListener) this, 0);
+            UtilClass.displyMessage(getString(R.string.msgCheckInternet), this, 0);
         }
+        mLayoutManager = new LinearLayoutManager(mContext);
+        mContext = this;
+        this.registerReceiver(pushReceiver, new IntentFilter(Constants.PushConstant.PushActionNews));
+//        rvNewsList.setNestedScrollingEnabled(true);
+
         btnSignOut = (Button) findViewById(R.id.btnSignout);
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,80 +143,30 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void getNewsData() {
-        String tag = "newsFeed";
-        StringRequest newsRequest = new StringRequest(Request.Method.GET, UtilClass.getNewsFeedUrl(), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("*****", "NewsFeedResponse" + response);
-
-                try {
-                    final NewsObject newsObj = new NewsObject();
-                    if (newsObj != null) {
-                        Log.e("status", newsObj.toString());
-                    } else {
-                        Log.e("newsObj", "Null");
-                    }
-                }
-                catch (Exception e){
-                    Toast.makeText(getApplication(),"NewObj Null",Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //newsListCallback.onFailRequestNewsList();
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> header = new HashMap<>();
-                header.put("Authorization", Constants.RequestConstants.HeaderPostfix + SharedPreferenceUtil.getString(Constants.UserData.token, Constants.RequestConstants.DefaultToken));
-                return header;
-            }
-        };
-        newsRequest.setRetryPolicy(new DefaultRetryPolicy(UtilClass.RetryTimeOut,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        MadhaparGamApp.getAppInstance().addToRequestQueue(newsRequest, tag);
-    }
-
-    private void sendNewsList(final JSONArray newsArray) {
-        List<NewsObject> newsList = new ArrayList<>();
-        if (newsArray != null) {
-            for (int i = 0; i < newsArray.length(); i++) {
-                NewsObject newsObject = new NewsObject();
-                newsObject.setNewsTitle(newsArray.optJSONObject(i).optString("newsTitle"));
-                JSONObject location = newsArray.optJSONObject(i).optJSONObject("newsLocation");
-                if (location != null)
-                    newsObject.setNewsCity(location.optString("locationName"));
-                newsObject.setNewsDescription(newsArray.optJSONObject(i).optString("newsDescription"));
-                newsObject.setNewsCommentCount(newsArray.optJSONObject(i).optString("newsComments"));
-                newsObject.setNewsImageArray(newsArray.optJSONObject(i).optJSONArray("newsImages").toString());
-                newsObject.setNewsLikeCount(newsArray.optJSONObject(i).optString("newsLikes"));
-                newsObject.setNewsId(newsArray.optJSONObject(i).optString("newsId"));
-                newsObject.setNewsDataAndTime(newsArray.optJSONObject(i).optString("newsCreatedDate"));
-                newsObject.setCommented(newsArray.optJSONObject(i).optBoolean("isCommented"));
-                JSONObject newsCatagoryObj = newsArray.optJSONObject(i).optJSONObject("newsCategory");
-                if (newsCatagoryObj != null) {
-                    newsObject.setNewsCatagory(newsCatagoryObj.optString("categoryName"));
-                }
-                String newsStatusId = newsArray.optJSONObject(i).optString("newsStatusId");
-                newsObject.setNewsStatusId(newsStatusId);
-                newsList.add(newsObject);
-            }
-        }
-        //newsListCallback.onSuccessNewsList(newsList);
-    }
-
 
     @Override
     public void onSuccessNewsList(List<NewsObject> newsList) {
         UtilClass.hideProgress();
+        requestPresenter.getNewsDetail("1", new NewsDetailViewInt() {
+            @Override
+            public void onSuccessNewsDetail(NewsObject newsObject) {
+
+            }
+
+            @Override
+            public void onFailRequest() {
+
+            }
+
+            @Override
+            public void onFailResponse(String message) {
+
+            }
+        });
+        UtilClass.hideProgress();
         if (newsList.size() > 0) {
             if (newsDataAdapter == null) {
+                srlNewsList.setVisibility(View.VISIBLE);
 //                llNewsListPlaceholder.setVisibility(View.GONE);
                 newsDataAdapter = new NewsListAdapter(this, newsList, rvNewsList, mLayoutManager, this);
                 mLayoutManager = new LinearLayoutManager(this);
@@ -202,17 +181,62 @@ public class NeewsFeed extends AppCompatActivity implements HomeViewInt {
             }
         }
     }
-
+    public BroadcastReceiver pushReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (srlNewsList.isRefreshing()) {
+                srlNewsList.setRefreshing(false);
+            }
+            WakeLocker.acquire(context);
+            if (requestPresenter == null) {
+                requestPresenter = new RequestPresenter();
+            }
+            requestPresenter.getNewsList(NeewsFeed.this);
+            WakeLocker.release();
+        }
+    };
     @Override
     public void onFailRequest() {
+               if (srlNewsList.isRefreshing()) {
+                srlNewsList.setRefreshing(false);
+            }
+            UtilClass.hideProgress();
+            UtilClass.displyMessage(getString(R.string.msgSomethigWentWrong), activity, 0);
 
     }
 
     @Override
     public void onFailResponse(String message) {
-
+        if (srlNewsList.isRefreshing()) {
+            srlNewsList.setRefreshing(false);
+        }
+        UtilClass.hideProgress();
+        UtilClass.displyMessage(message, activity, 0);
     }
+    @Override
+    public void onStart() {
+        this.invalidateOptionsMenu();
 
+                requestPresenter = new RequestPresenter();
+                requestPresenter.getNewsList(this);
+
+            super.onStart();
+    }
+    @Override
+    public void onResume() {
+
+        super.onResume();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CATAGORY_REQUEST_CODE) {
+                if (newsDataAdapter != null && newsDataAdapter.getFilter() != null) {
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     public void updateViews(final boolean listVisible) {
         if (listVisible) {
             llNewsListPlaceholder.setVisibility(View.GONE);

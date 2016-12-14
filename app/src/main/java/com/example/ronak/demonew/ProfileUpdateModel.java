@@ -140,10 +140,10 @@ public class ProfileUpdateModel implements ProfileUpdateModelInt {
         SharedPreferenceUtil.putValue(Constants.UserData.UserEmail, userData.optString("email"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserDOB, userData.optString("userDOB"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserBloodGroup, userData.optString("userBloodGroup"));
-        //SharedPreferenceUtil.putValue(Constants.UserData.UserMiddleName, userData.optString("userMiddleName"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserRegistrationId, userData.optString("userRegistrationId"));
         SharedPreferenceUtil.putValue(Constants.UserData.isVerified, userData.optBoolean("isVerified"));
         SharedPreferenceUtil.putValue(Constants.UserData.UserFBProfileName, userData.optString("userFBProfileName"));
+        Log.e("",""+userData);
         SharedPreferenceUtil.save();
     }
 }

@@ -38,9 +38,13 @@ public class UtilClass {
     public static final int LoginRequestError = 101;
     public static final int RequiredFieldError = 6;
     public static final int FirstNameError = 7;
-    public static final int LastNameError = 8;
+    public static final int LastNameBlankError = 8;
+    public static final int MiddleNameError = 9;
     public static final int FamilyMemberError = 9;
     public static final int MatchPassword = 10;
+    public static final int FirstNameLenght = 35;
+    public static final int LastNameLength = 36;
+    public static final int MiddleNameLength = 37;
     public static final int ConfirmPassword = 11;
     public static final int FeedbackSubject = 12;
     public static final int FeedbackFieldError = 13;
@@ -191,8 +195,14 @@ public class UtilClass {
     }
 
 
-    public static String getNewsFeedUrl() {
-        Uri builder = Uri.parse(Constants.RequestConstants.NewsFeedUrl).buildUpon().build();
+    public static String getNewsFeedUrl(String newsId, boolean isNewsList) {
+        Uri builder;
+        if (isNewsList) {
+            builder = Uri.parse(Constants.RequestConstants.NewsFeedUrl).buildUpon().build();
+        } else {
+            builder = Uri.parse(Constants.RequestConstants.NewsFeedUrl + newsId + "/").buildUpon().build();
+        }
+
         return builder.toString();
     }
 
@@ -226,7 +236,20 @@ public class UtilClass {
         Uri builder = Uri.parse(Constants.RequestConstants.RemoveLikeUrl + newsStatusId + "/").buildUpon().build();
         return builder.toString();
     }
+    public static String getNewsStatusUrl(String newsId, String newsStatusId, int newsType) {
+        Uri builder;
+        if (newsType == 0) {
+            builder = Uri.parse(Constants.RequestConstants.NewsStatusUrl).buildUpon().build();
+        } else if (newsType == 1) {
+            builder = Uri.parse(Constants.RequestConstants.NewsStatusUrl + newsId + "/").buildUpon().build();
+        } else if (newsType == 2) {
+            builder = Uri.parse(Constants.RequestConstants.NewsStatusUrl + newsId + "/" + newsStatusId + "/").buildUpon().build();
+        } else {
+            builder = Uri.parse(Constants.RequestConstants.NewsStatusUrl + newsStatusId + "/").buildUpon().build();
+        }
 
+        return builder.toString();
+    }
     public static boolean isInternetAvailabel(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

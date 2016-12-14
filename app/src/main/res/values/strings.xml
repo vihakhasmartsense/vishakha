@@ -20,6 +20,7 @@
     <string name="loginLabel">Login</string>
 
     <string name="firstName">First Name</string>
+    <string name="middleName">Father\'s\  Full Name</string>
     <string name="lastName">Last Name</string>
     <string name="familyMember">Family Member</string>
     <string name="textContact">Enter Your Mobile Number</string>
@@ -69,6 +70,9 @@
     <string name="enterfamilymember">Family Member is required</string>
     <string name="enterfirstnm">First name is required</string>
     <string name="enterlastnm">Last name is required</string>
+    <string name="firsrNameCharacter50">Please enter valid first name (1-50 chars).</string>
+    <string name="lastNameCharacter50">Please enter valid last name (1-50 chars).</string>
+    <string name="middleNameCharacter50">Please enter valid father\'s\ full name (1-50 chars).</string>
     <string name="enterpassword">Password is required</string>
     <string name="passwordlength">Password has to be an alphanumeric and minimum 7 characters long.</string>
     <string name="contactError">Mobile No. is required</string>

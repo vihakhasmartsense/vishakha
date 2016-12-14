@@ -99,12 +99,20 @@ public class EditProfileActivity extends FragmentActivity implements ProfileUpda
             }
         }
     }
+
+    int colorGrey = R.color.colorGrey;
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         toolbarProfile = (Toolbar) findViewById(tool_bar_profile);
-        toolbarProfile.setTitle("Profile");
         fname = (EditText) findViewById(R.id.etProfileEditProfileFirstName);
         lname = (EditText) findViewById(R.id.etProfileEditLastName);
         bloodgroup = (EditText) findViewById(R.id.etEditProfileBloodGroup);
@@ -116,14 +124,12 @@ public class EditProfileActivity extends FragmentActivity implements ProfileUpda
         location = (EditText) findViewById(R.id.etEditProfileLocation);
         mobileNumber = (EditText) findViewById(R.id.etProfileMobileNumber);
         ivEditIcon = (ImageView) findViewById(R.id.ivEditIcon);
-
         ivEditIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updatePhoto();
             }
         });
-
         String firstName = SharedPreferenceUtil.getString(Constants.UserData.UserFirstName, "");
         fname.setTag(SharedPreferenceUtil.getString(Constants.UserData.UserFirstName, ""));
         fname.setHint(getString(R.string.firstName));
@@ -159,15 +165,17 @@ public class EditProfileActivity extends FragmentActivity implements ProfileUpda
         }
         dOB.setTag(getString(R.string.DateOfBirth));
 
-
         location.setTag(SharedPreferenceUtil.getString(Constants.UserData.UserLocationName, ""));
-        if (SharedPreferenceUtil.getString(Constants.UserData.UserLocationName, "").equalsIgnoreCase("") || SharedPreferenceUtil.getString(Constants.UserData.UserLocationName, "").equalsIgnoreCase("null")) {
+        if (!SharedPreferenceUtil.contains(Constants.UserData.UserLocationName)) {
             location.setText("");
-            Log.e("location","here"+location.getText().toString());
+            location.setHint(getString(R.string.HintLocation));
+            Log.e("location","not available"+location.getText().toString());
         } else {
             location.setText(SharedPreferenceUtil.getString(Constants.UserData.UserLocationName, ""));
+
+            Log.e("location","here "+SharedPreferenceUtil.getString(Constants.UserData.UserLocationName, ""));
         }
-        location.setHint(getString(R.string.HintLocation));
+
 
         mobileNumber.setHint(SharedPreferenceUtil.getString(Constants.UserData.UserMobileNo, ""));
         mobileNumber.setTag(SharedPreferenceUtil.getString(Constants.UserData.UserMobileNo, ""));
@@ -216,7 +224,7 @@ public class EditProfileActivity extends FragmentActivity implements ProfileUpda
                         Map<String, String> params = new HashMap();
                         if (!TextUtils.isEmpty(location.getText().toString().trim())) {
                             location.setTag(location.getText().toString());
-                            params.put("userLocation", locationId + "");
+                            params.put("userLocation",locationId +"");
                             mProfileUpdatePresenter.updateUserDetail(params, SharedPreferenceUtil.getString(Constants.UserData.UserId, ""), EditProfileActivity.this);
                         }
                     }
@@ -394,7 +402,7 @@ public class EditProfileActivity extends FragmentActivity implements ProfileUpda
                             this.locationId = selectedLocation.optInt("locationId");
                             Map<String,String> params=new HashMap<>();
                             mProfileUpdatePresenter=new ProfileUpdatePresenter();
-                            params.put("userLocation", locationId+"");
+                            params.put("userLocation",locationId+"");
                             mProfileUpdatePresenter.updateUserDetail(params, SharedPreferenceUtil.getString(Constants.UserData.UserId, ""), EditProfileActivity.this);
                         }
                     }
@@ -697,6 +705,7 @@ public class EditProfileActivity extends FragmentActivity implements ProfileUpda
     public void onSuccessUploadImage(JSONObject response) {
         UtilClass.hideProgress();
         SharedPreferenceUtil.putValue(Constants.UserData.UserProfilePic, response.optJSONObject("response").optString("userProfilePic"));
+        Log.e("Success Uplod image",""+response);
         SharedPreferenceUtil.save();
         loadProfilePic(response.optJSONObject("response").optString("userProfilePic"));
     }

@@ -114,6 +114,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyView
             @Override
             public void onClick(View view) {
                 newsId1 = newsObj.getNewsId();
+                Log.e("Click","like button");
                 if(requestPresenter == null){
                     requestPresenter = new RequestPresenter();
                 }

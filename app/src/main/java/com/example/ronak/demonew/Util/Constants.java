@@ -18,31 +18,31 @@ public class Constants {
     }
 
     public static class RequestConstants {
-        public static String BaseUrl = "http://139.59.29.185/api/";
-        public static String BaseUrlForImage = "http://139.59.29.185";
-//                public static String BaseUrl = "http://192.168.0.105:8000/api/";
-//        public static String BaseUrlForImage = "http://192.168.0.105:8000";
+        public static String BaseUrl = "http://139.59.29.185:90/api/";
+        public static String BaseUrlForImage = "http://139.59.29.185:90";
+
         public static String LoginUrl = BaseUrl + "login/";
         public static String EventListUrl = BaseUrl + "events/";
         public static String NewsCategoryListUrl = BaseUrl + "categories/";
-        public static String LocationListUrl = BaseUrl + "locations/";
+        public static String LocationListUrl = BaseUrl + "location/";
         public static String CreateLocationListUrl = BaseUrl + "createLocation/";
         public static String EventStatusListUrl = BaseUrl + "eventStatuses/";
         public static String EventStatusCreateUrl = BaseUrl + "eventStatusCreate/";
-        public static String ProfileUpdateUrl = BaseUrl + "userDetail/";
+        public static String ProfileUpdateUrl = BaseUrl + "user/";
         public static String EventStatusUpdaetUrl = BaseUrl + "eventStatusDetail/";
         public static String EventDetailUrl = BaseUrl + "eventsDetail/";
         public static String FeedbackUrl = BaseUrl + "feedback/";
         public static String ProjectsListUrl = BaseUrl + "projects/";
         public static String AboutUsUrl = BaseUrl + "aboutus.html";
         public static String IntroductionUrl = BaseUrl + "introduction.html";
-        public static String LikeUpdateUrl = BaseUrl + "newsStatusCreate/";
+        public static String LikeUpdateUrl = BaseUrl + "newsStatus/";
         public static String CommentLstUrl = BaseUrl + "newsStatusList/";
         public static String CommentUpdateUrl = BaseUrl + "newsStatusDetail/";
-        public static String NewsFeedUrl = BaseUrl + "newsFeedList/";
+        public static String NewsFeedUrl = BaseUrl + "newsfeed/";
         public static String UserVerifyUrl = BaseUrl + "verifyUserVerificationOTP/";
-        public static String UserListUrl = BaseUrl + "users/";
+        public static String UserListUrl = BaseUrl + "user/";
         public static String OtpUrl = BaseUrl + "sendOTP/";
+        public static String NewsStatusUrl = BaseUrl + "newsStatus/";
         public static String VerifyOtpUrl = BaseUrl + "verifyOTP/";
         public static String ChangePasswordUrl = BaseUrl + "resetPassword/";
         public static String RemoveLikeUrl = BaseUrl + "newsStatusDetail/";

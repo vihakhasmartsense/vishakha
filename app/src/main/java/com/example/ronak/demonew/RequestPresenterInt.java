@@ -11,7 +11,7 @@ public interface RequestPresenterInt {
 
     void removeLike(String newsStatusId, NewsLikeCommentUpdateCallbackI updateCallback);
 
-    //void getNewsDetail(String newsId, NewsDetailViewInt newsDetailCallback);
+    void getNewsDetail(String newsId, NewsDetailViewInt newsDetailCallback);
 
     void getNewsCommentList(String newsId, String newsStatusId,  CommentListCallbackM commentCallback);
 

@@ -8,11 +8,12 @@ import java.util.List;
 /**
  * Created by Ronak on 11/9/2016.
  */
-public class RequestPresenter implements RequestPresenterInt,NewsFeedModelInt.NewsListCallback, NewsFeedModelInt.CommentListCallback, NewsFeedModelInt.NewsLikeCommentUpdate {
+public class RequestPresenter implements RequestPresenterInt,NewsFeedModelInt.NewsListCallback, NewsFeedModelInt.CommentListCallback, NewsFeedModel.NewsDetailCallback, NewsFeedModelInt.NewsLikeCommentUpdate {
     HomeViewInt homeViewInt;
     private NewsFeedModel newsModel;
     NewsLikeCommentUpdateCallbackI likeUpdateCallback;
     private CommentListCallbackM commentListCallback;
+    private NewsDetailViewInt newsDetailCallback;
 
     @Override
     public void onSuccessNewsList(List<NewsObject> newsList) {
@@ -48,6 +49,14 @@ public class RequestPresenter implements RequestPresenterInt,NewsFeedModelInt.Ne
             newsModel = new NewsFeedModel();
         }
         newsModel.getCommentList(newsId, newsStatusId, this);
+    }
+    @Override
+    public void getNewsDetail(String newsId, NewsDetailViewInt newsDetailCallback) {
+        this.newsDetailCallback = newsDetailCallback;
+        if (newsModel == null) {
+            newsModel = new NewsFeedModel();
+        }
+        newsModel.getNewsDetail(newsId, this);
     }
 
     @Override
@@ -99,5 +108,20 @@ public class RequestPresenter implements RequestPresenterInt,NewsFeedModelInt.Ne
     @Override
     public void onFailCommentResponse(String message) {
         commentListCallback.onFailResponse(message);
+    }
+
+    @Override
+    public void onSuccessNewsDetail(NewsObject newsObject) {
+        newsDetailCallback.onSuccessNewsDetail(newsObject);
+    }
+
+    @Override
+    public void onFailNewsDetailRequest() {
+        newsDetailCallback.onFailRequest();
+    }
+
+    @Override
+    public void onFailNewsDetailResponse(String message) {
+        newsDetailCallback.onFailResponse(message);
     }
 }

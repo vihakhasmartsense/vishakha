@@ -11,4 +11,5 @@ public interface HomeViewInt {
     void onFailRequest();
 
     void onFailResponse(String message);
+
 }

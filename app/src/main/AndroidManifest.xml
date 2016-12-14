@@ -26,6 +26,7 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".NeewsFeed"
+            android:label="News Feed"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -37,8 +38,11 @@
 
         <activity android:name=".CommentActivity" />
         <activity android:name=".ChangePasswordActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".LocationActivity"></activity>
+        <activity android:name=".EditProfileActivity"
+            android:label="Profile"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".LocationActivity" />
+        <activity android:name=".SignUpActivity" />
     </application>
 
 </manifest>

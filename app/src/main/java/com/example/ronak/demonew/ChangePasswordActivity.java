@@ -44,7 +44,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
                 UtilClass.closeKeyboard(ChangePasswordActivity.this);
                 if (UtilClass.isInternetAvailabel(ChangePasswordActivity.this)) {
                     UtilClass.showProgress(ChangePasswordActivity.this, getString(R.string.msgPleaseWait));
-                    presenter = new Presenter();
+                    //presenter = new Presenter();
                     presenter.changePasswordCredential(etChangeNewPassword.getText().toString().trim(), etChangeConfirmNewPassword.getText().toString().trim(), otpToken, SharedPreferenceUtil.getString(Constants.UserData.UserMobileNo, ""), changePasswordViewInt);
                 } else {
                     UtilClass.displyMessage(getString(R.string.msgCheckInternet), ChangePasswordActivity.this, 0);
